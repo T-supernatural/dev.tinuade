@@ -1,0 +1,11 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#F5F8FC"/>
+  <rect x="80" y="80" width="1040" height="470" rx="34" fill="white"/>
+  <path d="M384 314H419V255L384 277V314Z" fill="#05070B"/>
+  <path d="M438 314H473V203L438 225V314Z" fill="#05070B"/>
+  <path d="M467 314C501 314 528 287 528 253C528 236 521 222 510 211L490 231C498 237 503 247 503 258C503 276 488 290 470 290H454V314H467Z" fill="#0F3D91"/>
+  <path d="M502 186H562L550 246L532 228L496 264V225L520 202L502 186Z" fill="#0F3D91"/>
+  <text x="600" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="86" letter-spacing="8" font-weight="700" fill="#05070B">DEV TINUADE</text>
+  <path d="M365 377C470 352 670 349 792 377" stroke="#0F3D91" stroke-width="8" stroke-linecap="round"/>
+  <text x="600" y="446" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" fill="#334155">Helping Businesses Grow Online</text>
+</svg>
