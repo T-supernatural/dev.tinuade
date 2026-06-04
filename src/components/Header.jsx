@@ -29,9 +29,11 @@ export default function Header() {
             </NavLink>
           ))}
         </nav>
-        <NavLink to="/contact" className="btn-primary hidden lg:inline-flex">
-          Get Started
-        </NavLink>
+        <div className="hidden lg:block">
+          <NavLink to="/contact" className="btn-primary">
+            Get Started
+          </NavLink>
+        </div>
         <button
           type="button"
           className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-brand-line text-brand-ink md:hidden"
