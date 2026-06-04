@@ -1,4 +1,4 @@
-import { FaEnvelope, FaInstagram, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
+import { FaEnvelope, FaFacebookF, FaInstagram, FaMapMarkerAlt, FaWhatsapp } from 'react-icons/fa';
 import Reveal from '../components/Reveal.jsx';
 import { contact } from '../data/site.js';
 
@@ -27,6 +27,13 @@ export default function Contact() {
                 <span className="text-sm text-slate-600">{contact.email}</span>
               </span>
             </a>
+            <div className="flex items-center gap-4 rounded-lg bg-white p-5 shadow-crisp">
+              <span className="inline-flex h-11 w-11 items-center justify-center rounded-md bg-blue-50 text-brand-blue"><FaMapMarkerAlt /></span>
+              <span>
+                <span className="block font-extrabold">Location</span>
+                <span className="text-sm text-slate-600">{contact.address}</span>
+              </span>
+            </div>
           </div>
         </Reveal>
 
@@ -57,15 +64,29 @@ export default function Contact() {
             </label>
             <button type="submit" className="btn-primary mt-6 w-full">Send Message</button>
             <div className="mt-6 flex gap-3">
-              {[FaInstagram, FaLinkedin, FaWhatsapp].map((Icon, index) => (
-                <a key={index} href={index === 2 ? contact.whatsapp : '#'} className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-brand-cloud text-brand-blue transition hover:bg-brand-blue hover:text-white" aria-label="Social link">
-                  <Icon />
+              {[
+                { icon: FaFacebookF, href: contact.facebook, label: 'Facebook' },
+                { icon: FaInstagram, href: contact.instagram, label: 'Instagram' },
+                { icon: FaWhatsapp, href: contact.whatsapp, label: 'WhatsApp' },
+              ].map((item) => (
+                <a key={item.label} href={item.href} className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-brand-cloud text-brand-blue transition hover:bg-brand-blue hover:text-white" aria-label={item.label}>
+                  <item.icon />
                 </a>
               ))}
             </div>
           </form>
         </Reveal>
       </div>
+      <Reveal className="container-page mt-10 overflow-hidden rounded-xl bg-white p-3 shadow-premium">
+        <iframe
+          title="DEV TINUADE location map"
+          src={contact.map}
+          className="h-80 w-full rounded-lg border-0 md:h-[420px]"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          allowFullScreen
+        />
+      </Reveal>
     </section>
   );
 }

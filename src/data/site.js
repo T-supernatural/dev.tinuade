@@ -48,7 +48,11 @@ export const projects = [
 ];
 
 export const contact = {
-  email: 'hello@devtinuade.com',
-  phone: '+234 000 000 0000',
-  whatsapp: 'https://wa.me/2340000000000',
+  email: 'tinuademichael@gmail.com',
+  phone: '0911806405',
+  whatsapp: 'https://wa.me/234911806405',
+  facebook: 'https://www.facebook.com/share/1BDRktku3x/',
+  instagram: 'https://www.instagram.com/michael.tinuade/',
+  address: 'Olokonla, Ajah, Lagos, Nigeria',
+  map: 'https://www.google.com/maps?q=Olokonla%2C%20Ajah%2C%20Lagos%2C%20Nigeria&output=embed',
 };

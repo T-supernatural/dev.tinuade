@@ -1,4 +1,4 @@
-import { FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import Logo from './Logo.jsx';
 import { contact, services } from '../data/site.js';
@@ -13,9 +13,13 @@ export default function Footer() {
             Premium digital growth partner for websites, Google visibility, advertising, and AI-powered business systems.
           </p>
           <div className="mt-6 flex gap-3">
-            {[FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp].map((Icon, index) => (
-              <a key={index} href={index === 3 ? contact.whatsapp : '#'} className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-white/10 text-white transition hover:bg-brand-blue" aria-label="Social link">
-                <Icon />
+            {[
+              { icon: FaFacebookF, href: contact.facebook, label: 'Facebook' },
+              { icon: FaInstagram, href: contact.instagram, label: 'Instagram' },
+              { icon: FaWhatsapp, href: contact.whatsapp, label: 'WhatsApp' },
+            ].map((item) => (
+              <a key={item.label} href={item.href} className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-white/10 text-white transition hover:bg-brand-blue" aria-label={item.label}>
+                <item.icon />
               </a>
             ))}
           </div>
@@ -43,7 +47,7 @@ export default function Footer() {
           <div className="mt-5 flex flex-col gap-3 text-sm text-slate-300">
             <a href={`mailto:${contact.email}`} className="hover:text-white">{contact.email}</a>
             <a href={contact.whatsapp} className="hover:text-white">WhatsApp consultation</a>
-            <span>Lagos, Nigeria</span>
+            <span>{contact.address}</span>
           </div>
         </div>
       </div>
