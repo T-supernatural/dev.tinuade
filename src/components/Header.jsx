@@ -29,7 +29,7 @@ export default function Header() {
             </NavLink>
           ))}
         </nav>
-        <NavLink to="/contact" className="btn-primary hidden md:inline-flex">
+        <NavLink to="/contact" className="btn-primary hidden lg:inline-flex">
           Get Started
         </NavLink>
         <button

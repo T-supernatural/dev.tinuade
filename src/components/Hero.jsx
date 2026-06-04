@@ -13,7 +13,7 @@ export default function Hero() {
             <Logo compact />
             Digital growth agency
           </div>
-          <h1 className="mt-7 max-w-4xl text-5xl font-extrabold leading-[1.04] text-brand-ink sm:text-6xl lg:text-7xl">
+          <h1 className="mt-7 max-w-4xl text-5xl font-bold leading-[1.02] text-brand-ink sm:text-6xl lg:text-7xl">
             Helping Businesses Grow Online
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
@@ -37,19 +37,18 @@ export default function Hero() {
         </motion.div>
 
         <motion.div
-          className="relative min-h-[420px]"
+          className="relative overflow-hidden rounded-[1.5rem] bg-brand-blue p-3 sm:p-4 lg:min-h-[420px] lg:rounded-[2rem]"
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.15 }}
         >
-          <div className="absolute inset-0 rounded-[2rem] bg-brand-blue" />
-          <div className="absolute inset-4 rounded-[1.5rem] bg-white shadow-premium" />
-          <div className="absolute left-8 right-8 top-8 rounded-xl border border-brand-line bg-brand-cloud p-5">
-            <div className="flex items-center justify-between">
+          <div className="absolute inset-4 hidden rounded-[1.5rem] bg-white shadow-premium lg:block" />
+          <div className="relative rounded-xl border border-brand-line bg-brand-cloud p-4 shadow-premium sm:p-5 lg:absolute lg:left-8 lg:right-8 lg:top-8 lg:shadow-none">
+            <div className="flex flex-wrap items-center justify-between gap-3">
               <Logo compact />
               <span className="rounded-md bg-brand-blue px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">Growth OS</span>
             </div>
-            <div className="mt-7 grid gap-4 sm:grid-cols-3">
+            <div className="mt-5 grid gap-3 sm:grid-cols-3 lg:mt-7 lg:gap-4">
               {['Website', 'Google', 'AI'].map((label, index) => (
                 <div key={label} className="rounded-lg bg-white p-4 shadow-crisp">
                   <div className="h-2 rounded-full bg-slate-200">
@@ -66,16 +65,16 @@ export default function Hero() {
               ))}
             </div>
           </div>
-          <div className="absolute bottom-8 left-8 right-8 rounded-xl bg-brand-ink p-6 text-white shadow-premium">
-            <div className="grid gap-6 sm:grid-cols-3">
+          <div className="relative mt-4 rounded-xl bg-brand-ink p-5 text-white shadow-premium sm:p-6 lg:absolute lg:bottom-8 lg:left-8 lg:right-8 lg:mt-0">
+            <div className="grid grid-cols-3 gap-3 sm:gap-6">
               {[
                 ['4', 'Core services'],
                 ['24/7', 'Digital presence'],
                 ['1:1', 'Growth support'],
               ].map(([value, label]) => (
                 <div key={label}>
-                  <p className="text-3xl font-extrabold">{value}</p>
-                  <p className="mt-1 text-sm text-slate-300">{label}</p>
+                  <p className="text-2xl font-bold sm:text-3xl">{value}</p>
+                  <p className="mt-1 text-xs leading-5 text-slate-300 sm:text-sm">{label}</p>
                 </div>
               ))}
             </div>

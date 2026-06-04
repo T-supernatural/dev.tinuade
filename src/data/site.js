@@ -49,8 +49,8 @@ export const projects = [
 
 export const contact = {
   email: 'tinuademichael@gmail.com',
-  phone: '0911806405',
-  whatsapp: 'https://wa.me/234911806405',
+  phone: '09118064105',
+  whatsapp: 'https://wa.me/2349118064105',
   facebook: 'https://www.facebook.com/share/1BDRktku3x/',
   instagram: 'https://www.instagram.com/michael.tinuade/',
   address: 'Olokonla, Ajah, Lagos, Nigeria',
