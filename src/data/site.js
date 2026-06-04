@@ -42,9 +42,24 @@ export const reasons = [
 export const process = ['Consultation', 'Strategy', 'Implementation', 'Growth'];
 
 export const projects = [
-  { title: 'Bakery Website', type: 'Local commerce', metric: 'Online orders and trust' },
-  { title: 'Restaurant Website', type: 'Hospitality', metric: 'Bookings and menu visibility' },
-  { title: 'School Website', type: 'Education', metric: 'Admissions and parent enquiries' },
+  {
+    title: 'Yakoyo Restaurant',
+    type: 'Restaurant website',
+    metric: 'Food brand visibility and customer enquiries',
+    url: 'https://yakoyorestaurant.netlify.app',
+  },
+  {
+    title: 'The Glow Salon Lagos',
+    type: 'Beauty and salon website',
+    metric: 'Service showcase and booking-focused presence',
+    url: 'https://theglowsalonlagos.netlify.app',
+  },
+  {
+    title: 'Real Joy Schools',
+    type: 'School website',
+    metric: 'Admissions, trust, and parent information',
+    url: 'https://realjoyschools.netlify.app',
+  },
 ];
 
 export const contact = {

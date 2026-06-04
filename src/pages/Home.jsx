@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight, FaExternalLinkAlt } from 'react-icons/fa';
 import CTA from '../components/CTA.jsx';
 import Hero from '../components/Hero.jsx';
 import Reveal from '../components/Reveal.jsx';
@@ -77,7 +77,7 @@ export default function Home() {
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
             <Reveal>
               <p className="eyebrow">Portfolio</p>
-              <h2 className="h2">Designed to showcase future client wins.</h2>
+              <h2 className="h2">Recent websites built for real businesses.</h2>
             </Reveal>
             <Link to="/contact" className="btn-secondary">
               Discuss a Project <FaArrowRight />
@@ -86,17 +86,32 @@ export default function Home() {
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {projects.map((project, index) => (
               <Reveal key={project.title} delay={index * 0.08}>
-                <article className="overflow-hidden rounded-lg bg-white shadow-crisp">
-                  <div className="h-44 bg-[linear-gradient(135deg,#0F3D91,#05070B)] p-5 text-white">
-                    <p className="text-sm font-bold uppercase tracking-[0.14em] text-blue-100">{project.type}</p>
-                    <h3 className="mt-16 text-2xl font-extrabold">{project.title}</h3>
+                <article className="group relative overflow-hidden rounded-lg bg-white shadow-crisp transition duration-300 hover:-translate-y-1 hover:shadow-premium">
+                  <div className="relative h-56 overflow-hidden border-b border-brand-line bg-brand-ink">
+                    <iframe
+                      title={`${project.title} preview`}
+                      src={project.url}
+                      className="pointer-events-none h-[720px] w-[1280px] origin-top-left scale-[0.18] border-0 sm:scale-[0.2] md:scale-[0.18]"
+                      loading="lazy"
+                      tabIndex="-1"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/35 via-transparent to-transparent" />
                   </div>
                   <div className="p-6">
+                    <p className="text-sm font-bold uppercase tracking-[0.14em] text-brand-blue">{project.type}</p>
+                    <h3 className="mt-3 text-2xl font-extrabold">{project.title}</h3>
                     <p className="text-sm font-bold text-brand-blue">{project.metric}</p>
-                    <p className="mt-3 text-sm leading-7 text-slate-600">
-                      Placeholder project card ready for real screenshots, outcomes, and case study links.
-                    </p>
+                    <span className="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-brand-ink transition group-hover:text-brand-blue">
+                      Visit live site <FaExternalLinkAlt className="text-xs" />
+                    </span>
                   </div>
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="absolute inset-0"
+                    aria-label={`Open ${project.title} live website`}
+                  />
                 </article>
               </Reveal>
             ))}
