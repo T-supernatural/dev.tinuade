@@ -87,11 +87,11 @@ export default function Home() {
             {projects.map((project, index) => (
               <Reveal key={project.title} delay={index * 0.08}>
                 <article className="group relative overflow-hidden rounded-lg bg-white shadow-crisp transition duration-300 hover:-translate-y-1 hover:shadow-premium">
-                  <div className="relative h-56 overflow-hidden border-b border-brand-line bg-brand-ink">
+                  <div className="relative h-52 overflow-hidden border-b border-brand-line bg-brand-ink sm:h-56 md:h-60">
                     <iframe
                       title={`${project.title} preview`}
                       src={project.url}
-                      className="pointer-events-none h-[720px] w-[1280px] origin-top-left scale-[0.18] border-0 sm:scale-[0.2] md:scale-[0.18]"
+                      className="portfolio-preview pointer-events-none border-0"
                       loading="lazy"
                       tabIndex="-1"
                     />

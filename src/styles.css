@@ -57,3 +57,37 @@ h3 {
 .glass-panel {
   @apply border border-white/70 bg-white/[0.82] shadow-premium backdrop-blur;
 }
+
+.portfolio-preview {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1280px;
+  height: 900px;
+  transform: translateX(-50%) scale(0.27);
+  transform-origin: top center;
+}
+
+@media (min-width: 640px) {
+  .portfolio-preview {
+    transform: translateX(-50%) scale(0.31);
+  }
+}
+
+@media (min-width: 768px) {
+  .portfolio-preview {
+    transform: translateX(-50%) scale(0.24);
+  }
+}
+
+@media (min-width: 1024px) {
+  .portfolio-preview {
+    transform: translateX(-50%) scale(0.22);
+  }
+}
+
+@media (min-width: 1280px) {
+  .portfolio-preview {
+    transform: translateX(-50%) scale(0.24);
+  }
+}
