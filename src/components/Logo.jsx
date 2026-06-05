@@ -11,7 +11,7 @@ export default function Logo({ className = '', compact = false }) {
       </svg>
       {!compact && (
         <span className="leading-none">
-          <span className="block text-xl font-extrabold tracking-[0.18em] text-brand-ink sm:text-2xl">DEV TINUADE</span>
+          <span className="block text-xl font-extrabold tracking-[0.18em] text-brand-ink dark:text-white sm:text-2xl">DEV TINUADE</span>
           <svg className="mt-1 h-3 w-full" viewBox="0 0 220 14" fill="none" aria-hidden="true">
             <path d="M18 11C65 2 151 1 202 11" stroke="#0F3D91" strokeWidth="3" strokeLinecap="round" />
           </svg>
