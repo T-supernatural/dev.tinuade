@@ -9,7 +9,7 @@ export default function Hero() {
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-blue/40 to-transparent" />
       <div className="container-page grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
         <motion.div initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75 }}>
-          <div className="inline-flex items-center gap-3 rounded-md border border-brand-line bg-white px-4 py-2 text-sm font-bold text-slate-700 shadow-crisp dark:border-white/10 dark:bg-white/8 dark:text-slate-200">
+          <div className="inline-flex items-center gap-3 rounded-md border border-brand-line bg-white px-4 py-2 text-sm font-bold text-slate-700 shadow-crisp dark:border-blue-300/30 dark:bg-transparent dark:text-white dark:shadow-none">
             <Logo compact />
             Digital growth agency
           </div>
