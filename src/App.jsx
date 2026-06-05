@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Footer from './components/Footer.jsx';
 import Header from './components/Header.jsx';
 
@@ -12,12 +12,6 @@ const titles = {
 
 export default function App() {
   const location = useLocation();
-  const [darkMode, setDarkMode] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    const savedTheme = window.localStorage.getItem('dev-tinuade-theme');
-    if (savedTheme) return savedTheme === 'dark';
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
-  });
 
   useEffect(() => {
     document.title = titles[location.pathname] || titles['/'];
@@ -25,14 +19,22 @@ export default function App() {
   }, [location.pathname]);
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', darkMode);
-    document.documentElement.style.colorScheme = darkMode ? 'dark' : 'light';
-    window.localStorage.setItem('dev-tinuade-theme', darkMode ? 'dark' : 'light');
-  }, [darkMode]);
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const syncTheme = (event) => {
+      const prefersDark = 'matches' in event ? event.matches : mediaQuery.matches;
+      document.documentElement.classList.toggle('dark', prefersDark);
+      document.documentElement.style.colorScheme = prefersDark ? 'dark' : 'light';
+    };
+
+    syncTheme(mediaQuery);
+    mediaQuery.addEventListener('change', syncTheme);
+
+    return () => mediaQuery.removeEventListener('change', syncTheme);
+  }, []);
 
   return (
     <div className="min-h-screen bg-white text-brand-ink transition-colors duration-300 dark:bg-slate-950 dark:text-white">
-      <Header darkMode={darkMode} onToggleTheme={() => setDarkMode((value) => !value)} />
+      <Header />
       <main>
         <Outlet />
       </main>

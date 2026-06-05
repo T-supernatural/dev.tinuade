@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaBars, FaMoon, FaSun, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes } from 'react-icons/fa';
 import Logo from './Logo.jsx';
 
 const nav = [
@@ -10,7 +10,7 @@ const nav = [
   { to: '/contact', label: 'Contact' },
 ];
 
-export default function Header({ darkMode, onToggleTheme }) {
+export default function Header() {
   const [open, setOpen] = useState(false);
 
   const linkClass = ({ isActive }) =>
@@ -36,15 +36,6 @@ export default function Header({ darkMode, onToggleTheme }) {
             Get Started
           </NavLink>
         </div>
-        <button
-          type="button"
-          className="ml-auto mr-3 inline-flex h-11 w-11 items-center justify-center rounded-md border border-brand-line text-brand-ink transition hover:border-brand-blue hover:text-brand-blue dark:border-white/15 dark:text-white dark:hover:border-blue-300 dark:hover:text-blue-200 md:ml-0"
-          onClick={onToggleTheme}
-          aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-          title={darkMode ? 'Light mode' : 'Dark mode'}
-        >
-          {darkMode ? <FaSun /> : <FaMoon />}
-        </button>
         <button
           type="button"
           className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-brand-line text-brand-ink transition dark:border-white/15 dark:text-white md:hidden"
