@@ -1,6 +1,14 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { fileURLToPath } from 'node:url';
 
 export default defineConfig({
-  plugins: [react()],
+  appType: 'mpa',
+  build: {
+    rollupOptions: {
+      input: Object.fromEntries(
+        ['index.html', 'about/index.html', 'services/index.html', 'work/index.html', 'contact/index.html']
+          .map((page) => [page, fileURLToPath(new URL(page, import.meta.url))]),
+      ),
+    },
+  },
 });

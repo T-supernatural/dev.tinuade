@@ -15,6 +15,11 @@ body {
   background: #ffffff;
 }
 
+button,
+a {
+  touch-action: manipulation;
+}
+
 .dark body {
   background: #020617;
 }
@@ -70,6 +75,71 @@ h3 {
   height: 900px;
   transform: translateX(-50%) scale(0.27);
   transform-origin: top center;
+}
+
+/* Logo introduction */
+.brand-intro { position: fixed; inset: 0; z-index: 1000; overflow: auto; display: grid; grid-template-rows: auto 1fr auto; min-height: 100dvh; padding: max(20px, env(safe-area-inset-top)) clamp(24px, 6vw, 88px) max(24px, env(safe-area-inset-bottom)); background: #fff; color: #101827; transition: opacity 500ms ease, transform 500ms ease; }
+.brand-intro--exit { opacity: 0; transform: scale(1.035); pointer-events: none; }
+.brand-intro__header { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-size: 10px; font-weight: 700; letter-spacing: .18em; color: #52627a; }
+.brand-intro__header button { min-height: 44px; padding: 8px 16px; font-size: 12px; letter-spacing: 0; color: #0f3d91; cursor: pointer; border: 1px solid #dce5f2; border-radius: 24px; background: #fff; }
+.brand-intro__header button:focus-visible { outline: 3px solid #0f3d91; outline-offset: 4px; }
+.brand-intro__center { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 56px 0; isolation: isolate; }
+.brand-intro__halo { position: absolute; z-index: -1; width: min(65vw, 550px); aspect-ratio: 1; border: 1px solid #e4ebf6; border-radius: 50%; box-shadow: 0 0 0 50px #f8faff, 0 0 0 51px #edf2f9; animation: intro-halo 3.4s ease-out both; }
+.brand-intro__logo { width: min(100%, 680px); aspect-ratio: 2.45; position: relative; overflow: hidden; mix-blend-mode: multiply; animation: intro-logo 1.5s cubic-bezier(.22,1,.36,1) both; }
+.brand-intro__logo img { position: absolute; width: 100%; height: auto; max-width: none; top: -75%; left: 0; }
+.brand-intro__tagline { margin: 32px 0 0; text-align: center; font-size: clamp(14px, 2vw, 18px); line-height: 1.7; color: #52627a; animation: intro-copy .8s .7s both; }
+.brand-intro__tagline strong { color: #0f3d91; font-weight: 700; }
+.brand-intro__services { margin-top: 28px; font-size: 10px; font-weight: 700; letter-spacing: .18em; color: #52627a; animation: intro-copy .8s 1s both; }
+.brand-intro__services span { margin: 0 clamp(8px, 2vw, 20px); color: #0f3d91; }
+.brand-intro__footer { position: relative; width: min(100%, 440px); justify-self: center; }
+.brand-intro__status { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-size: 12px; color: #52627a; }
+.brand-intro__status > span:last-child { font-family: 'Space Grotesk', sans-serif; font-size: 28px; color: #0f3d91; font-variant-numeric: tabular-nums; }
+.brand-intro__track { height: 2px; background: #e1e8f2; margin-top: 14px; overflow: hidden; }
+.brand-intro__track span { display: block; width: 100%; height: 100%; background: #0f3d91; transform-origin: left; }
+.brand-intro__footer > p { text-align: center; font-size: 9px; letter-spacing: .24em; color: #52627a; margin-top: 20px; }
+@keyframes intro-logo { from { opacity: 0; transform: translateY(18px) scale(.92); filter: blur(8px); } to { opacity: 1; transform: none; filter: blur(0); } }
+@keyframes intro-halo { from { opacity: 0; transform: scale(.65); } to { opacity: 1; transform: scale(1); } }
+@keyframes intro-copy { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (max-height: 500px) { .brand-intro__center { padding: 16px 0; } .brand-intro__logo { max-width: 300px; } .brand-intro__tagline { margin-top: 12px; } .brand-intro__services { display: none; } }
+
+
+/* Play the supplied six-second film, then hold the brand end card. */
+.brand-intro--cinema { background: #030711; color: #fff; }
+.brand-intro__film { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.brand-intro--cinema::before { content: ''; position: absolute; inset: 0; background: #fff; opacity: 0; }
+.brand-intro--cinema .brand-intro__header { z-index: 2; color: #c4d1e5; }
+.brand-intro--cinema .brand-intro__header button { background: #ffffffed; }
+.brand-intro--cinema .brand-intro__center { opacity: 0; }
+.brand-intro--cinema .brand-intro__logo,
+.brand-intro--cinema .brand-intro__halo,
+.brand-intro--cinema .brand-intro__tagline,
+.brand-intro--cinema .brand-intro__services { animation: none; }
+.brand-intro--cinema .brand-intro__footer { color: #c4d1e5; }
+.brand-intro--cinema .brand-intro__status,
+.brand-intro--cinema .brand-intro__status > span:last-child,
+.brand-intro--cinema .brand-intro__footer > p { color: inherit; }
+.brand-intro--cinema .brand-intro__track { background: #8493aa55; }
+.brand-intro--cinema .brand-intro__track span { background: #7daaff; }
+.brand-intro--playing::before { animation: cinema-white 1.5s 5.7s ease-in-out forwards; }
+.brand-intro--playing .brand-intro__film { animation: cinema-film 1.4s 5.7s ease-in-out forwards; }
+.brand-intro--playing .brand-intro__center { animation: cinema-brand 2s 6s cubic-bezier(.22,1,.36,1) forwards; }
+.brand-intro--playing .brand-intro__header,
+.brand-intro--playing .brand-intro__footer { animation: cinema-ink 1.5s 5.7s forwards; }
+.brand-intro--playing .brand-intro__tagline { animation: intro-copy 1.2s 7.2s both; }
+.brand-intro--playing .brand-intro__services { animation: intro-copy 1.2s 7.8s both; }
+@keyframes cinema-film { to { opacity: 0; transform: scale(1.04); } }
+@keyframes cinema-white { to { opacity: 1; } }
+@keyframes cinema-brand { from { opacity: 0; transform: scale(.9) translateY(12px); filter: blur(10px); } to { opacity: 1; transform: none; filter: blur(0); } }
+@keyframes cinema-ink { to { color: #52627a; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-intro--cinema { background: #fff; }
+  .brand-intro--cinema .brand-intro__center { opacity: 1; }
+  .brand-intro--cinema .brand-intro__header,
+  .brand-intro--cinema .brand-intro__footer { color: #52627a; }
+  :root { scroll-behavior: auto; }
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .loader-path { display: none; }
 }
 
 @media (min-width: 640px) {

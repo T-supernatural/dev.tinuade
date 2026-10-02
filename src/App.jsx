@@ -1,7 +1,8 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Footer from './components/Footer.jsx';
 import Header from './components/Header.jsx';
+import MultimediaLoader from './components/MultimediaLoader.jsx';
 
 const titles = {
   '/': 'DEV TINUADE | Helping Businesses Grow Online',
@@ -12,6 +13,12 @@ const titles = {
 
 export default function App() {
   const location = useLocation();
+  const [showLoader, setShowLoader] = useState(() => location.pathname === '/');
+
+  const completeLoader = useCallback(() => {
+    setShowLoader(false);
+    requestAnimationFrame(() => document.getElementById('main-content')?.focus({ preventScroll: true }));
+  }, []);
 
   useEffect(() => {
     document.title = titles[location.pathname] || titles['/'];
@@ -33,12 +40,19 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white text-brand-ink transition-colors duration-300 dark:bg-slate-950 dark:text-white">
-      <Header />
-      <main>
-        <Outlet />
-      </main>
-      <Footer />
-    </div>
+    <>
+      {showLoader && <MultimediaLoader onComplete={completeLoader} />}
+      <div
+        className="min-h-screen bg-white text-brand-ink transition-colors duration-300 dark:bg-slate-950 dark:text-white"
+        aria-hidden={showLoader || undefined}
+        inert={showLoader}
+      >
+        <Header />
+        <main id="main-content" tabIndex={-1}>
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 }
