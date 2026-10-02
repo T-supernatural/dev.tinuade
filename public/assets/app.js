@@ -66,16 +66,91 @@ function playIntro(explicit=false){
   introFrame=requestAnimationFrame(tick);
   introFailsafe=setTimeout(()=>finishIntro(explicit),duration+800);
 }
-replay.addEventListener('click',()=>playIntro(true));
+// Intro temporarily disabled. Keep its implementation for a future return.
+// replay.addEventListener('click',()=>playIntro(true));
+replay.hidden=true;
 introSkip.addEventListener('click',()=>finishIntro(true));
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&document.body.classList.contains('intro-active'))finishIntro(true);});
 const introLogo=intro.querySelector('img');
 const logoReady=introLogo.decode?introLogo.decode().catch(()=>{}):Promise.resolve();
-if(document.body.dataset.page==='home')logoReady.then(()=>requestAnimationFrame(()=>requestAnimationFrame(()=>playIntro())));
+// if(document.body.dataset.page==='home')logoReady.then(()=>requestAnimationFrame(()=>requestAnimationFrame(()=>playIntro())));
 document.querySelector('#motion-toggle')?.addEventListener('click',event=>{const paused=document.body.classList.toggle('motion-paused');event.currentTarget.setAttribute('aria-pressed',String(paused));event.currentTarget.textContent=paused?'Resume motion':'Pause motion';});
 const menuToggle=document.querySelector('.menu-toggle');
 const mainNav=document.querySelector('#main-nav');
 menuToggle.addEventListener('click',()=>{const open=mainNav.classList.toggle('open');menuToggle.setAttribute('aria-expanded',String(open));menuToggle.textContent=open?'Close':'Menu';});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'){mainNav.classList.remove('open');menuToggle.setAttribute('aria-expanded','false');menuToggle.textContent='Menu';}});
 document.querySelector('#year').textContent=String(new Date().getFullYear());
-if('IntersectionObserver' in window&&!reduced.matches){const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}}},{threshold:.08});document.querySelectorAll('.section-heading,.service-card,.project,.about-heading,.about-copy').forEach(el=>{el.classList.add('reveal');observer.observe(el);});}
+// Scroll choreography: animate once, keep content available without JavaScript,
+// and reveal focused links immediately for keyboard navigation.
+const motionTargets=document.querySelectorAll('.hero-copy > *, .stage, .page-breadcrumb, .page-hero > *, .section-heading, .home-teaser > *, .service-card, .project, .about-heading, .about-copy > *, .process > *, .contact-heading > *, .contact-details > *, .page-cta > *, .teaser-list > *, footer > *');
+const motionControls=[...document.querySelectorAll('#motion-toggle')];
+const footerMotion=document.createElement('button');
+footerMotion.type='button';
+footerMotion.className='site-motion-toggle';
+footerMotion.textContent='Pause motion';
+document.querySelector('footer').append(footerMotion);
+motionControls.push(footerMotion);
+let motionObserver;
+let scrollFrame=0;
+let userPaused=false;
+const scrollLine=document.createElement('div');
+scrollLine.className='reading-progress';
+scrollLine.setAttribute('aria-hidden','true');
+document.body.append(scrollLine);
+function updateScroll(){
+  scrollFrame=0;
+  if(reduced.matches||userPaused)return;
+  const distance=document.documentElement.scrollHeight-window.innerHeight;
+  scrollLine.style.transform='scaleX('+ (distance>0? Math.min(1,Math.max(0,window.scrollY/distance)):0) +')';
+}
+window.addEventListener('scroll',()=>{if(!scrollFrame)scrollFrame=requestAnimationFrame(updateScroll);},{passive:true});
+window.addEventListener('resize',updateScroll);
+function syncMotion(){
+  const paused=reduced.matches||userPaused;
+  document.body.classList.toggle('motion-paused',paused);
+  motionControls.forEach(button=>{
+    button.textContent=reduced.matches?'Reduced motion enabled':paused?'Resume motion':'Pause motion';
+    button.setAttribute('aria-pressed',String(paused));
+    button.disabled=reduced.matches;
+  });
+  motionObserver?.disconnect();
+  if(paused){
+    motionTargets.forEach(el=>el.classList.add('motion-visible'));
+    scrollLine.hidden=true;
+    return;
+  }
+  scrollLine.hidden=false;
+  if('IntersectionObserver' in window){
+    motionObserver=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('motion-visible');
+          motionObserver.unobserve(entry.target);
+        }
+      });
+    },{threshold:0,rootMargin:'0px 0px -24px 0px'});
+    motionTargets.forEach(el=>{
+      const index=[...el.parentElement.children].indexOf(el);
+      el.style.setProperty('--reveal-delay',Math.min(index%4*70,210)+'ms');
+      el.classList.add('motion-reveal');
+      if(!el.classList.contains('motion-visible'))motionObserver.observe(el);
+    });
+  }
+  updateScroll();
+}
+// Replace the original hero-only click handler with one shared motion preference.
+motionControls.forEach(button=>{
+  const replacement=button.cloneNode(true);
+  button.replaceWith(replacement);
+  motionControls[motionControls.indexOf(button)]=replacement;
+  replacement.addEventListener('click',()=>{userPaused=!userPaused;syncMotion();});
+});
+document.addEventListener('focusin',event=>{
+  let element=event.target;
+  while(element&&element!==document.body){
+    if(element.classList.contains('motion-reveal'))element.classList.add('motion-visible');
+    element=element.parentElement;
+  }
+});
+reduced.addEventListener('change',syncMotion);
+syncMotion();

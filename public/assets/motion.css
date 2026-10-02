@@ -1,0 +1,49 @@
+/* Shared choreography for the five-page site. */
+body .motion-reveal {
+  opacity: 0;
+  translate: 0 30px;
+  transition: opacity 700ms cubic-bezier(.22,1,.36,1), translate 800ms cubic-bezier(.22,1,.36,1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+body .motion-reveal.motion-visible { opacity: 1; translate: 0 0; }
+body .stage.motion-reveal { translate: 0 40px; }
+body .stage.motion-visible { translate: 0 0; }
+.reading-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px;
+  z-index: 90; background: linear-gradient(90deg, #0f3d91, #74a7ff);
+  transform: scaleX(0); transform-origin: left; pointer-events: none;
+}
+body .header nav a { position: relative; }
+body .header nav a::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -7px;
+  height: 2px; background: currentColor; transform: scaleX(0);
+  transform-origin: left; transition: transform 250ms ease;
+}
+body .header nav a:hover::after,
+body .header nav a:focus-visible::after,
+body .header nav a[aria-current="page"]::after { transform: scaleX(1); }
+body .project-title-art { transition: translate 450ms cubic-bezier(.22,1,.36,1); }
+body .project-open { transition: translate 250ms ease, color 250ms ease; }
+body .text-link span { display: inline-block; transition: transform 300ms ease; }
+body .text-link:hover span { transform: rotate(90deg); }
+body .service-symbol { transition: transform 350ms ease; transform-origin: left center; }
+body .contact-details a { transition: padding-left 250ms ease, background 250ms ease; }
+body .site-motion-toggle { min-height: 44px; }
+body .site-motion-toggle:disabled { cursor: default; }
+body #replay[hidden] { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  body .project:hover .project-title-art { translate: 0 -6px; }
+  body .project:hover .project-open { translate: 4px 0; color: #0f3d91; }
+  body .service-card:hover .service-symbol { transform: translateY(-5px) rotate(-5deg); }
+  body .contact-details a:hover { padding-left: 12px; background: #ffffff08; }
+}
+body.motion-paused .motion-reveal { opacity: 1; translate: none; transition: none; }
+body.motion-paused *, body.motion-paused *::before, body.motion-paused *::after {
+  animation-play-state: paused !important; transition: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  body .motion-reveal { opacity: 1; translate: none; transition: none; }
+  .reading-progress { display: none; }
+  body .project:hover .project-title-art, body .project:hover .project-open { translate: none; }
+  body .service-card:hover .service-symbol, body .text-link:hover span { transform: none; }
+}
